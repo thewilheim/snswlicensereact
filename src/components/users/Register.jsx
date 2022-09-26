@@ -7,6 +7,7 @@ export default function Register() {
     email: "",
     mobile: "",
     password: "",
+    dateOfBirth: "",
   });
 
   const registerUser = async () => {
@@ -43,6 +44,11 @@ export default function Register() {
           type="text"
           onChange={(e) => setUser({ ...user, lastName: e.target.value })}
           value={user.lastName}
+        />
+        <input
+          type="date"
+          onChange={(e) => setUser({ ...user, dateOfBirth: e.target.value })}
+          value={user.dateOfBirth}
         />
         <label htmlFor="">Email:</label>
         <input
