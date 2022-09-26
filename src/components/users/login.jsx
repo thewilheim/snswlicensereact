@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginAsync } from "../../web-services";
 
@@ -8,14 +8,16 @@ export default function Login() {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
-  if (token) {
-    navigate(-1);
-  }
+  useEffect(() => {
+    if (token) {
+      navigate(-1);
+    }
+  }, []);
 
   function login() {
-    loginAsync(username,password)
-    .then(j=>navigate("/"))
-    .catch(e=>alert(e.message))
+    loginAsync(username, password)
+      .then((j) => navigate("/"))
+      .catch((e) => alert(e.message));
   }
 
   return (
@@ -33,14 +35,14 @@ export default function Login() {
 
         <label>Password</label>
         <input
-          type="text"
+          type="password"
           value={password}
           placeholder="password"
           onChange={(e) => setPassword(e.target.value)}
         />
         <br />
 
-        <button onSubmit={login}>Login</button>
+        <button onClick={login}>Login</button>
       </form>
     </div>
   );
