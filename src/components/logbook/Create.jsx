@@ -12,12 +12,26 @@ export default function Create() {
     endTime: "",
     instructorLed: false,
     userEmail: userInfo.email,
+    totalHours: 0,
   });
 
+  const calculateTotal = (start, end) => {
+    const startDate = new Date(start);
+    const endDate = new Date(end);
+    let diff = endDate.getTime() - startDate.getTime();
+    diff = diff / 1000;
+    const minuteDifference = diff / 60;
+    return minuteDifference;
+  };
+
   function add() {
-    addEntry(user).then((response) => {
+    addEntry({
+      ...user,
+      totalHours: calculateTotal(user.startTime, user.endTime),
+    }).then((response) => {
       if (response.ok) {
         alert("Logbook Entry Added");
+        navigate("/logbook");
       } else {
         alert(response.status);
       }
@@ -25,7 +39,12 @@ export default function Create() {
   }
 
   return (
-    <form>
+    <form
+      onSubmit={(e) => {
+        add();
+        e.preventDefault();
+      }}
+    >
       <label htmlFor="">Start Time:</label>
       <input
         type="datetime-local"
@@ -49,7 +68,7 @@ export default function Create() {
         value={user.instructorLed}
       />
       <br />
-      <button onClick={() => add()}>Add</button>
+      <button>Add</button>
     </form>
   );
 }
