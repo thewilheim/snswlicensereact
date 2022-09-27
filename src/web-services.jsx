@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 export const server = "http://localhost:8080";
 
 export async function loginAsync(email, password) {
@@ -47,4 +49,8 @@ export function addEntry(logbook) {
     body: JSON.stringify(logbook),
   };
   return fetch(`${server}/logbook/create`, config);
+}
+
+export function logout() {
+    localStorage.removeItem("token");
 }
