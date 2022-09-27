@@ -5,6 +5,7 @@ import { Login, Register } from "./components/users";
 import Create from "./components/logbook/Create";
 import LogbookLayout from "./components/logbook/LogbookLayout";
 import { logout } from "./web-services";
+import Search from "./components/agents/Search";
 
 function App() {
   const navigate = useNavigate();
@@ -27,8 +28,8 @@ function App() {
             </div>
           ) : (
             <>
-            <button onClick={() => navigate("/login")}>Login</button>
-            <button onClick={() => navigate("/register")}>Register</button>
+              <button onClick={() => navigate("/login")}>Login</button>
+              <button onClick={() => navigate("/register")}>Register</button>
             </>
           )}
         </nav>
@@ -40,6 +41,7 @@ function App() {
         <Route path="/" element={<Homepage />}>
           <Route path="/create" element={<Create />} />
           <Route path="/logbook" element={<LogbookLayout />} />
+          <Route path="/searchCustomer" element={<Search />} />
         </Route>
       </Routes>
     </>
