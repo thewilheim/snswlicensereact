@@ -51,6 +51,18 @@ export function addEntry(logbook) {
   return fetch(`${server}/logbook/create`, config);
 }
 
+export function findEntry(logbook) {
+  let config = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+    body: JSON.stringify(logbook),
+  };
+  return fetch(`${server}/users`, config);
+}
+
 export function logout() {
     localStorage.removeItem("token");
 }

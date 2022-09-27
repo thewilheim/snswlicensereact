@@ -49,7 +49,7 @@ export default function Register() {
           required
         />
         <br />
-        <label htmlFor="">Date:</label>
+        <label htmlFor="">Date of Birth:</label>
         <input
           type="date"
           onChange={(e) => setUser({ ...user, dateOfBirth: e.target.value })}
@@ -65,7 +65,7 @@ export default function Register() {
           required
         />
         <br />
-        <label htmlFor="">Mobile:</label>
+        <label htmlFor="">Mobile Number:</label>
         <input
           type="phone"
           onChange={(e) => setUser({ ...user, mobile: e.target.value })}
