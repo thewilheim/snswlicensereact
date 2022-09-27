@@ -24,7 +24,7 @@ function Homepage() {
       <h1>Homepage</h1>
       <header>
         <nav>
-          <div onClick={() => navigate("/")}>Home</div>
+          <div onClick={() => navigate("/logbook")}>Home</div>
           {token ? (
             <div>
               Logged in as John Doe -{" "}
