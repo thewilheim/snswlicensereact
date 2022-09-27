@@ -26,7 +26,10 @@ function App() {
               <button onClick={() => logOut()}>Log Out</button>
             </div>
           ) : (
+            <>
             <button onClick={() => navigate("/login")}>Login</button>
+            <button onClick={() => navigate("/register")}>Register</button>
+            </>
           )}
         </nav>
       </header>
