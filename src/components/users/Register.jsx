@@ -21,9 +21,7 @@ export default function Register() {
       body: JSON.stringify(user),
     });
 
-    const data = response.json();
-
-    console.log(data);
+    navigate("/login");
   };
 
   return (
@@ -32,7 +30,6 @@ export default function Register() {
         action=""
         onSubmit={(e) => {
           registerUser();
-          navigate("/login");
           e.preventDefault();
         }}
       >
@@ -41,6 +38,7 @@ export default function Register() {
           type="text"
           onChange={(e) => setUser({ ...user, firstName: e.target.value })}
           value={user.firstName}
+          required
         />
         <br />
         <label htmlFor="">Last Name:</label>
@@ -48,6 +46,7 @@ export default function Register() {
           type="text"
           onChange={(e) => setUser({ ...user, lastName: e.target.value })}
           value={user.lastName}
+          required
         />
         <br />
         <label htmlFor="">Date:</label>
@@ -55,6 +54,7 @@ export default function Register() {
           type="date"
           onChange={(e) => setUser({ ...user, dateOfBirth: e.target.value })}
           value={user.dateOfBirth}
+          required
         />
         <br />
         <label htmlFor="">Email:</label>
@@ -62,6 +62,7 @@ export default function Register() {
           type="email"
           onChange={(e) => setUser({ ...user, email: e.target.value })}
           value={user.email}
+          required
         />
         <br />
         <label htmlFor="">Mobile:</label>
@@ -69,6 +70,7 @@ export default function Register() {
           type="phone"
           onChange={(e) => setUser({ ...user, mobile: e.target.value })}
           value={user.mobile}
+          required
         />
         <br />
         <label htmlFor="">Password</label>
@@ -76,6 +78,7 @@ export default function Register() {
           type="password"
           onChange={(e) => setUser({ ...user, password: e.target.value })}
           value={user.password}
+          required
         />
         <br />
         <button type="submit">Register</button>
