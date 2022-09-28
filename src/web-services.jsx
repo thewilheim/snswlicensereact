@@ -23,6 +23,35 @@ export async function loginAsync(email, password) {
     });
 }
 
+export async function getUser(id) {
+    if(!id) {
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow',
+            headers: {
+                'Content-Type':'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }
+          };
+          
+          return fetch("http://localhost:8080/user", requestOptions)
+            .catch(error => console.log('error', error));
+    } else {
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow',
+            headers: {
+                'Content-Type':'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }
+          };
+          
+          return fetch(`http://localhost:8080/user/${id}`, requestOptions)
+            .catch(error => console.log('error', error));
+    }
+    
+}
+
 export function parseJwt(token) {
   var base64Url = token.split(".")[1];
   var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");

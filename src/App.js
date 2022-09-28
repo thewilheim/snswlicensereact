@@ -1,9 +1,8 @@
 import { Route, Routes, useNavigate } from "react-router-dom";
 import "./App.css";
 import Homepage from "./components/Homepage";
-import { Login, Register } from "./components/users";
-import Create from "./components/logbook/Create";
-import LogbookLayout from "./components/logbook/LogbookLayout";
+import { Login, Register, Profile } from "./components/users";
+import { Create, LayoutPage } from "./components/logbook";
 import { logout } from "./web-services";
 import Search from "./components/agents/Search";
 
@@ -40,7 +39,8 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<Homepage />}>
           <Route path="/create" element={<Create />} />
-          <Route path="/logbook" element={<LogbookLayout />} />
+          <Route path="/profile/:id" element={<Profile />} />
+          <Route path="/logbook" element={<LayoutPage />} />
           <Route path="/searchCustomer" element={<Search />} />
         </Route>
       </Routes>
