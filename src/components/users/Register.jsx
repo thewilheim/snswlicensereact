@@ -1,5 +1,6 @@
 import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { parseJwt } from "../../web-services";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -21,7 +22,12 @@ export default function Register() {
       body: JSON.stringify(user),
     });
 
-    navigate("/login");
+    const token = await response.json();
+
+    localStorage.setItem("token", token);
+
+    let payload = parseJwt(token);
+    navigate("/");
   };
 
   return (
