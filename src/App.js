@@ -3,7 +3,7 @@ import "./App.css";
 import Homepage from "./components/Homepage";
 import { Login, Register, Profile } from "./components/users";
 import { Create, LayoutPage } from "./components/logbook";
-import { logout } from "./web-services";
+import { logout, parseJwt } from "./web-services";
 import Search from "./components/agents/Search";
 
 function App() {
@@ -22,7 +22,7 @@ function App() {
           <div onClick={() => navigate("/logbook")}>Home</div>
           {token ? (
             <div>
-              Logged in as John Doe -{" "}
+              {`Logged in as ${parseJwt(token).name}` } -{" "}
               <button onClick={() => logOut()}>Log Out</button>
             </div>
           ) : (
