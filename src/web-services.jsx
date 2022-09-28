@@ -1,5 +1,3 @@
-import { useNavigate } from "react-router-dom";
-
 export const server = "http://localhost:8080";
 
 export async function loginAsync(email, password) {
