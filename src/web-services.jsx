@@ -66,6 +66,19 @@ export function parseJwt(token) {
   return JSON.parse(jsonPayload);
 }
 
+export function createLicense(email) {
+    let payload = parseJwt(localStorage.getItem("token"));
+    let config = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + localStorage.getItem("token"),
+      },
+      body: JSON.stringify(email, payload.email, new Date()),
+    };
+    return fetch(`${server}/issue/learner`, config);
+  }
+
 export function addEntry(logbook) {
   let config = {
     method: "POST",

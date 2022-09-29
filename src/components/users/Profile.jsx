@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { json, useNavigate, useParams } from "react-router-dom";
-import { getUser, parseJwt } from "../../web-services";
+import { createLicense, getUser, parseJwt } from "../../web-services";
 
 export default function Profile() {
   const { id } = useParams();
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
+  const payload = parseJwt(token);
   const [user, setUser] = useState({});
   const [loaded, setLoaded] = useState(false);
 
@@ -17,7 +18,6 @@ export default function Profile() {
     if (!token) {
       navigate(-1);
     } else {
-      let payload = parseJwt(token);
       let request = null;
       if (payload.roles.includes("CSR")) {
         request = await getUser(id);
@@ -42,6 +42,56 @@ export default function Profile() {
     }
   }
 
+  function licenseButton() {
+    if (payload.roles.includes("CSR")) {
+      if (
+        !user.roles.includes("provisional") &&
+        user.roles.includes("learners")
+      ) {
+        return (
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              newLicense();
+            }}
+          >
+            Issue Learner License
+          </button>
+        );
+      } else if (
+        !user.roles.includes("provisional") &&
+        !user.roles.includes("learners")
+      ) {
+        <button
+            onClick={(e) => {
+              e.preventDefault();
+              upgradeLicense();
+            }}
+          >
+            Issue Provisional License
+          </button>
+      }
+    }
+  }
+
+  async function newLicense() {
+    await createLicense(user.email)
+      .then((r) => {
+        return r.json();
+      })
+      .then((j) => {
+        alert(`License ID: ${j._id} has been created successfully!`)
+      })
+      .then(()=>{
+        window.location.reload(false);
+      })
+      .catch((e) => {
+        alert(e.message);
+      });
+  }
+
+  async function upgradeLicense() {}
+
   if (!loaded) {
     return <h1>Loading...</h1>;
   } else {
@@ -54,6 +104,7 @@ export default function Profile() {
         <p>Mobile: {user.mobile}</p>
         <p>Date Of Birth: {user.dateOfBirth}</p>
         {userRoles()}
+        {licenseButton()}
       </div>
     );
   }
