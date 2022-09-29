@@ -1,19 +1,21 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { parseJwt } from "../../web-services";
+import LogbookEntries from "./LogbookEntries";
+import "./logbookStyle.css";
 
 function LayoutPage() {
-  const navigate = useNavigate();
-  const roles = ["learnerLicense"];
+  const token = localStorage.getItem("token");
+  const userInfo = parseJwt(token);
 
   return (
-    <main>
-      {roles.includes("learnerLicense") ? (
-        <div>
-          License Number: XXXXXX
-          <button onClick={() => navigate("/create")}>Log Hours</button>
-        </div>
+    <main className="logbookContainer">
+      <h1 className="text-3xl font-bold">My Logbook</h1>
+      {userInfo.roles.includes("learnerLicense") ? (
+        <LogbookEntries />
       ) : (
-        <div>You dont have a licence</div>
+        <div className="mt-20">
+          <h1 className="text-2xl font-bold">You dont have a licence</h1>
+        </div>
       )}
     </main>
   );

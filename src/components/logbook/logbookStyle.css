@@ -1,0 +1,15 @@
+.logbookContainer {
+    @apply flex flex-col justify-center w-full p-14 mx-auto
+}
+
+.entryContainer {
+    @apply grid grid-cols-1 gap-4 auto-cols-auto md:grid-cols-2  xl:grid-cols-6
+}
+
+.entryCard {
+    @apply flex flex-col justify-evenly  border border-slate-400 border-t-[#2E5299] rounded shadow-md border-t-4 p-4 shadow-slate-500/40 hover:border-2 hover:border-t-4 hover:border-[#2E5299]
+}
+
+.btn-red {
+    @apply rounded text-white font-semibold bg-[#D81439] px-10 h-9 my-auto
+}
