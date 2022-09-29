@@ -11,24 +11,24 @@ export default function Create() {
     startTime: "",
     endTime: "",
     instructorLed: false,
-    userEmail: userInfo.email,
-    totalHours: 0,
   });
 
   const calculateTotal = (start, end) => {
     const startDate = new Date(start);
     const endDate = new Date(end);
-    let diff = endDate.getTime() - startDate.getTime();
-    diff = diff / 1000;
-    const minuteDifference = diff / 60;
-    return minuteDifference;
+    let secondsDiff = endDate.getTime() - startDate.getTime();
+    secondsDiff = secondsDiff / 1000;
+    const minuteDifference = secondsDiff / 60;
+
+    if (user.instructorLed) {
+      return minuteDifference + 180;
+    } else {
+      return minuteDifference;
+    }
   };
 
   function add() {
-    addEntry({
-      ...user,
-      totalHours: calculateTotal(user.startTime, user.endTime),
-    }).then((response) => {
+    addEntry(user).then((response) => {
       if (response.ok) {
         alert("Logbook Entry Added");
         navigate("/logbook");
