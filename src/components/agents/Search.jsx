@@ -22,7 +22,15 @@ export default function Search() {
 
   function find() {
     findEntry(user)
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          alert("No User Found");
+          setHasResult(false);
+          throw new Error("No User Found");
+        }
+
+        return response.json();
+      })
       .then((data) => {
         setUserData(data);
         setHasResult(true);
@@ -32,7 +40,7 @@ export default function Search() {
   return (
     <>
       <form
-        onClick={(e) => {
+        onSubmit={(e) => {
           e.preventDefault();
         }}
       >
