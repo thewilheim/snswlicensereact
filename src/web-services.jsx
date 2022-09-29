@@ -22,32 +22,33 @@ export async function loginAsync(email, password) {
 }
 
 export async function getUser(id) {
-    if(!id) {
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow',
-            headers: {
-                'Content-Type':'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('token')
-            }
-          };
-          
-          return fetch("http://localhost:8080/user", requestOptions)
-            .catch(error => console.log('error', error));
-    } else {
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow',
-            headers: {
-                'Content-Type':'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('token')
-            }
-          };
-          
-          return fetch(`http://localhost:8080/user/${id}`, requestOptions)
-            .catch(error => console.log('error', error));
-    }
-    
+  if (!id) {
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    };
+
+    return fetch("http://localhost:8080/user", requestOptions).catch((error) =>
+      console.log("error", error)
+    );
+  } else {
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    };
+
+    return fetch(`http://localhost:8080/user/${id}`, requestOptions).catch(
+      (error) => console.log("error", error)
+    );
+  }
 }
 
 export function parseJwt(token) {
@@ -67,16 +68,29 @@ export function parseJwt(token) {
 }
 
 export function createLicense(email) {
+  let payload = parseJwt(localStorage.getItem("token"));
+  let config = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+    body: JSON.stringify(email, payload.email, new Date()),
+  };
+  return fetch(`${server}/issue/learner`, config);
+}
+
+export function getLicense(email) {
     let payload = parseJwt(localStorage.getItem("token"));
-    let config = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + localStorage.getItem("token"),
-      },
-      body: JSON.stringify(email, payload.email, new Date()),
-    };
-    return fetch(`${server}/issue/learner`, config);
+    var config = {
+        method: "GET",
+        redirect: "follow",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + localStorage.getItem("token"),
+        },
+      };
+    return fetch(`${server}/logbook/${email}`, config);
   }
 
 export function addEntry(logbook) {

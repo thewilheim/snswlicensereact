@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import { json, useNavigate, useParams } from "react-router-dom";
-import { createLicense, getUser, parseJwt } from "../../web-services";
+import {
+  createLicense,
+  getLicense,
+  getUser,
+  parseJwt,
+} from "../../web-services";
 
 export default function Profile() {
   const { id } = useParams();
@@ -8,6 +13,7 @@ export default function Profile() {
   const token = localStorage.getItem("token");
   const payload = parseJwt(token);
   const [user, setUser] = useState({});
+  const [license, setLicense] = useState({});
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -26,6 +32,14 @@ export default function Profile() {
       }
       let result = await request.json();
       setUser(result);
+      if (
+        result.roles.includes("provisional") ||
+        result.roles.includes("learners")
+      ) {
+        let licenseRequest = await getLicense(result.email);
+        let licenseResult = await licenseRequest.json();
+        setLicense(licenseResult);
+      }
       setLoaded(true);
     }
   }
@@ -34,9 +48,9 @@ export default function Profile() {
     if (user.roles.includes("CSR")) {
       return <p>Customer Service Representitive</p>;
     } else if (user.roles.includes("provisional")) {
-      return <p>Provisional license holder</p>;
+      return <p>Provisional license ID: {license._id}</p>;
     } else if (user.roles.includes("learners")) {
-      return <p>Learner's license holder</p>;
+      return <p>Learner's license ID: {license._id}</p>;
     } else {
       return <p>Licenceless customer</p>;
     }
@@ -63,13 +77,13 @@ export default function Profile() {
         !user.roles.includes("learners")
       ) {
         <button
-            onClick={(e) => {
-              e.preventDefault();
-              upgradeLicense();
-            }}
-          >
-            Issue Provisional License
-          </button>
+          onClick={(e) => {
+            e.preventDefault();
+            upgradeLicense();
+          }}
+        >
+          Issue Provisional License
+        </button>;
       }
     }
   }
@@ -80,9 +94,9 @@ export default function Profile() {
         return r.json();
       })
       .then((j) => {
-        alert(`License ID: ${j._id} has been created successfully!`)
+        alert(`License ID: ${j._id} has been created successfully!`);
       })
-      .then(()=>{
+      .then(() => {
         window.location.reload(false);
       })
       .catch((e) => {
