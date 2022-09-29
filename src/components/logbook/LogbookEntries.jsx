@@ -84,7 +84,7 @@ function LogbookEntries() {
             </div>
           </div>
           <div className="ml-6">
-            Total Night Hours Completed : {convertTime(userData.totalTime)}
+            Total Night Hours Completed : {convertTime(userData.totalNightTime)}
             <div className="mb-4 w-full h-4 bg-gray-200 rounded-sm dark:bg-gray-700">
               <div
                 className="h-4 bg-blue-600 rounded-sm dark:bg-blue-500"

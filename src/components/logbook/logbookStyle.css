@@ -1,9 +1,9 @@
 .logbookContainer {
-    @apply flex flex-col justify-center w-1/2 p-14 mx-auto
+    @apply flex flex-col justify-center w-full p-14 mx-auto
 }
 
 .entryContainer {
-    @apply grid grid-cols-3 gap-4
+    @apply grid grid-cols-1 gap-4 auto-cols-auto md:grid-cols-2  xl:grid-cols-6
 }
 
 .entryCard {
