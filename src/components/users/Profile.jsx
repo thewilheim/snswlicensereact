@@ -60,7 +60,7 @@ export default function Profile() {
     if (payload.roles.includes("CSR")) {
       if (
         !user.roles.includes("provisional") &&
-        user.roles.includes("learners")
+        !user.roles.includes("learners")
       ) {
         return (
           <button
@@ -74,7 +74,7 @@ export default function Profile() {
         );
       } else if (
         !user.roles.includes("provisional") &&
-        !user.roles.includes("learners")
+        user.roles.includes("learners")
       ) {
         <button
           onClick={(e) => {
