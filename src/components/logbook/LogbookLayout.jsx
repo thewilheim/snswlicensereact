@@ -10,7 +10,7 @@ function LayoutPage() {
   return (
     <main className="logbookContainer">
       <h1 className="text-3xl font-bold">My Logbook</h1>
-      {userInfo.roles.includes("learnerLicense") ? (
+      {userInfo.roles.includes("learners") ? (
         <LogbookEntries />
       ) : (
         <div className="mt-20">
