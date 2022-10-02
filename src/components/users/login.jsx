@@ -54,7 +54,7 @@ export default function Login() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <a href="#" className="text-xs text-gray-600 hover:underline">
+            <a href="#" className="text-xs text-black-600 hover:underline">
               Forget Password?
             </a>
             <div className="mt-6">
@@ -67,7 +67,7 @@ export default function Login() {
             </div>
           </div>
         </form>
-        <p className="mt-8 text-xs font-light text-center text-gray-700">
+        <p className="mt-8 text-xs font-light text-center text-black-700">
           {" "}
           Don't have an account?{" "}
           <a
