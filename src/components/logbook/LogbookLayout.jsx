@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { parseJwt } from "../../web-services";
 import LogbookEntries from "./LogbookEntries";
 import "./logbookStyle.css";
@@ -6,6 +6,10 @@ import "./logbookStyle.css";
 function LayoutPage() {
   const token = localStorage.getItem("token");
   const userInfo = parseJwt(token);
+
+  useEffect(() => {
+    document.title = "Logbook | Service NSW Demo";
+  }, []);
 
   return (
     <main className="logbookContainer">

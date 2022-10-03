@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { logout, parseJwt, server } from "../web-services";
 import ServiceCard from "./ServiceCard";
 
@@ -7,9 +7,21 @@ function Homepage() {
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
+  useEffect(() => {
+    document.title = "Overview | Service NSW Demo";
+  }, []);
+
   if (!token) {
     return (
-      <h1 className="font-bold mb-5 text-3xl">Please Log in to continue</h1>
+      <div className="flex justify-center flex-col items-center mt-80">
+        <h1 className="font-bold mb-5 text-3xl">
+          Welcome to the Service NSW Logbook
+        </h1>
+        <h2 className="font-bold mb-5 text-3xl">
+          Please <Link to="/login">Login</Link> or{" "}
+          <Link to="/register">Register</Link> to continue
+        </h2>
+      </div>
     );
   }
 

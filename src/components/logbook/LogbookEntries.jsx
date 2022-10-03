@@ -45,20 +45,26 @@ function LogbookEntries() {
     return `${t.toLocaleDateString()} ${t.toLocaleTimeString()}`;
   };
 
-  const deleteEntry = (id) => {
+  const deleteEntry = (total, id, startTime) => {
+    const startHour = new Date(startTime).getHours();
+    setUserData({
+      ...userData,
+      totalTime: userData.totalTime - total,
+      totalNightTime:
+        startHour >= 17
+          ? userData.totalNightTime - total
+          : userData.totalNightTime,
+      practiceLogEntries: userData.practiceLogEntries.filter(
+        (item) => item._id !== id
+      ),
+    });
+
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${token}`);
 
     fetch(`${server}/logbook/${id}`, {
       method: "DELETE",
       headers: myHeaders,
-    }).then(() => {
-      setUserData({
-        ...userData,
-        practiceLogEntries: userData.practiceLogEntries.filter(
-          (item) => item._id !== id
-        ),
-      });
     });
   };
 
@@ -106,8 +112,9 @@ function LogbookEntries() {
               startTime={convertDate(item.startTime)}
               endTime={convertDate(item.endTime)}
               instructorLed={item.instructorLed}
-              totalMilliseconds={convertTime(item.totalMilliseconds)}
+              totalMilliseconds={item.totalMilliseconds}
               deleteEntry={deleteEntry}
+              convertTime={convertTime}
               _id={item._id}
               key={item._id}
             />

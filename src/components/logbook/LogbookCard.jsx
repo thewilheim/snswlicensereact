@@ -7,6 +7,7 @@ function LogbookCard({
   totalMilliseconds,
   instructorLed,
   deleteEntry,
+  convertTime,
   _id,
 }) {
   return (
@@ -28,13 +29,13 @@ function LogbookCard({
       </div>
       <p className="mb-4">
         <strong className="font-semibold">Total Hours:</strong>{" "}
-        {totalMilliseconds}
+        {convertTime(totalMilliseconds)}
       </p>
 
       <div>
         <button
           className="font-semibold text-[#2E78C4] hover:text-slate-700"
-          onClick={() => deleteEntry(_id)}
+          onClick={() => deleteEntry(totalMilliseconds, _id, startTime)}
         >
           Delete
         </button>
