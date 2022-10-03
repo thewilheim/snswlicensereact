@@ -1,1 +1,23 @@
-/* typetext */
+.viewContainerMain {
+    @apply relative flex flex-col justify-center min-h-screen overflow-hidden
+}
+
+.viewContainerBorder {
+    @apply w-full p-6 m-auto bg-white border-t border-blue-600 rounded shadow-lg shadow-blue-800/50 lg:max-w-md
+}
+
+.headingContainer {
+    @apply text-3xl font-semibold text-left text-black
+}
+
+.labelHeaderContainer {
+    @apply block text-sm text-black
+}
+
+.inputContainer {
+    @apply block w-full px-4 py-2 mt-2 text-black bg-white border rounded-md focus:border-blue-400 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40
+}
+
+.btn-red {
+    @apply w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-[#E31837] rounded-md hover:bg-red-600 focus:outline-none
+}
