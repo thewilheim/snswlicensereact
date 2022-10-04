@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import { json, useNavigate, useParams } from "react-router-dom";
 import {
+  convertTime,
   createLicense,
+  getHours,
   getLicense,
   getUser,
+  getUserId,
   parseJwt,
+  upgradeLicense,
 } from "../../web-services";
 
 export default function Profile() {
@@ -50,7 +54,13 @@ export default function Profile() {
     } else if (user.roles.includes("provisional")) {
       return <p>Provisional license ID: {license._id}</p>;
     } else if (user.roles.includes("learners")) {
-      return <p>Learner's license ID: {license._id}</p>;
+      return (
+        <>
+          <p>Learner's license ID: {license._id}</p>
+          <p>Total hours: {convertTime(license.totalTime)}</p>
+          <p>Total night hours: {convertTime(license.totalNightTime)}</p>
+        </>
+      );
     } else {
       return <p>Licenceless customer</p>;
     }
@@ -74,12 +84,17 @@ export default function Profile() {
         );
       } else if (
         !user.roles.includes("provisional") &&
-        user.roles.includes("learners")
+        user.roles.includes("learners") &&
+        new Date(
+          new Date(user.dateOfBirth).getTime() + 788923800000
+        ).getTime() < new Date().getTime() &&
+        getHours(license.totalTime) >= 120 &&
+        getHours(license.totalNightTime) >= 20
       ) {
         <button
           onClick={(e) => {
             e.preventDefault();
-            upgradeLicense();
+            upgradeLicenseLocal();
           }}
         >
           Issue Provisional License
@@ -89,7 +104,7 @@ export default function Profile() {
   }
 
   async function newLicense() {
-    await createLicense(user.email)
+    await createLicense(user)
       .then((r) => {
         return r.json();
       })
@@ -97,6 +112,7 @@ export default function Profile() {
         alert(`License ID: ${j._id} has been created successfully!`);
       })
       .then(() => {
+        debugger;
         window.location.reload(false);
       })
       .catch((e) => {
@@ -104,7 +120,9 @@ export default function Profile() {
       });
   }
 
-  async function upgradeLicense() {}
+  async function upgradeLicenseLocal() {
+    upgradeLicense(user);
+  }
 
   if (!loaded) {
     return <h1>Loading...</h1>;

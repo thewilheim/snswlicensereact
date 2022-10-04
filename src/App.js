@@ -3,16 +3,27 @@ import "./App.css";
 import Homepage from "./components/Homepage";
 import { Login, Register, Profile } from "./components/users";
 import { Create, LayoutPage } from "./components/logbook";
-import { logout, parseJwt } from "./web-services";
+import { getUserId, logout, parseJwt } from "./web-services";
 import Search from "./components/agents/Search";
+import { useEffect, useState } from "react";
 
 function App() {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
+  const [id, setId] = useState(0);
+
+  useEffect(()=>{
+    getId()
+  },[])
 
   function logOut() {
     logout();
     navigate("/");
+  }
+
+  async function getId() {
+    let id = await getUserId();
+    setId(id);
   }
 
   return (
@@ -77,6 +88,9 @@ function App() {
             </svg>
             <div className="pr-5 cursor-pointer" onClick={() => navigate("/")}>
               Overview
+            </div>
+            <div className="pr-5 cursor-pointer" onClick={() => navigate(`/profile/${id}`)}>
+              Profile
             </div>
             {parseJwt(token).roles.includes("learners") ? (
               <div
