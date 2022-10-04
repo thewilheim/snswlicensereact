@@ -1,12 +1,16 @@
 import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { findEntry, parseJwt } from "../../web-services";
+import "../mainStyle.css";
+import Results from "./Results";
 
 export default function Search() {
   //   const token = localStorage.getItem("token");
   //   const userInfo = parseJwt(token);
 
   const navigate = useNavigate();
+
+  const [showResults, setShowResults] = useState(false);
 
   const [user, setUser] = useState({
     firstName: "",
@@ -38,11 +42,9 @@ export default function Search() {
   }
 
   return (
-    <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
-      <div className="w-full p-6 m-auto bg-white border-t border-orange-600 rounded shadow-lg shadow-orange-800/50 lg:max-w-md">
-        <h1 className="text-3xl font-semibold text-left text-black-700">
-          Search Customer
-        </h1>
+    <div className="viewContainerMain">
+      <div className="viewContainerBorder">
+        <h1 className="headingContainer">Search Customer</h1>
         <>
           <form
             className="mt-6"
@@ -50,33 +52,34 @@ export default function Search() {
               e.preventDefault();
             }}
           >
-            <label htmlFor="" className="block text-sm text-black-800">
+            <label htmlFor="" className="labelHeadingContainer">
               First Name:
             </label>
             <input
               type="text"
-              className="block w-full px-4 py-2 mt-2 text-black-700 bg-white border rounded-md focus:border-blue-400 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+              className="inputContainer"
               onChange={(e) => setUser({ ...user, firstName: e.target.value })}
               value={user.firstName}
               required
             />
             <br />
-            <label htmlFor="" className="block text-sm text-black-800">
+            <label htmlFor="" className="labelHeadingContainer">
               Last Name:
             </label>
             <input
               type="text"
-              className="block w-full px-4 py-2 mt-2 text-black-700 bg-white border rounded-md focus:border-blue-400 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+              className="inputContainer"
               onChange={(e) => setUser({ ...user, lastName: e.target.value })}
               value={user.lastName}
               required
             />
             <br />
-            <label htmlFor="" className="block text-sm text-black-800">
+            <label htmlFor="" className="labelHeadingContainer">
               Date of Birth:
             </label>
             <input
               type="date"
+              className="inputContainer"
               onChange={(e) =>
                 setUser({ ...user, dateOfBirth: e.target.value })
               }
@@ -84,30 +87,30 @@ export default function Search() {
               required
             />
             <br />
-            <label htmlFor="" className="block text-sm text-black-800">
+            <label htmlFor="" className="labelHeadingContainer">
               Email:
             </label>
             <input
               type="email"
-              className="block w-full px-4 py-2 mt-2 text-black-700 bg-white border rounded-md focus:border-blue-400 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+              className="inputContainer"
               onChange={(e) => setUser({ ...user, email: e.target.value })}
               value={user.email}
               disabled
             />
             <br />
-            <label htmlFor="" className="block text-sm text-black-800">
+            <label htmlFor="" className="labelHeadingContainer">
               Mobile Number:
             </label>
             <input
               type="phone"
-              className="block w-full px-4 py-2 mt-2 text-black-700 bg-white border rounded-md focus:border-blue-400 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+              className="inputContainer"
               onChange={(e) => setUser({ ...user, mobile: e.target.value })}
               value={user.mobile}
               disabled
             />
             <div className="mt-6">
               <button
-                className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-red-700 rounded-md hover:bg-red-600 focus:outline-none"
+                className="btn-red-main"
                 onClick={() => {
                   find();
                 }}
@@ -116,49 +119,11 @@ export default function Search() {
               </button>
             </div>
           </form>
-
-          {hasResult ? <FoundResult userData={userData} /> : null}
+          {hasResult ? <Results userData={userData} /> : null}
         </>
       </div>
     </div>
   );
-
-  function FoundResult(props) {
-    const { userData } = props;
-    return (
-      <div>
-        <h2>Results</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Search Criteria</th>
-              <th>Customer Details</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>First Name</td>
-              <td>{userData.firstName}</td>
-            </tr>
-            <tr>
-              <td>Last Name</td>
-              <td>{userData.lastName}</td>
-            </tr>
-            <tr>
-              <td>Date of Birth</td>
-              <td>{userData.dateOfBirth}</td>
-            </tr>
-            <tr>
-              <td>Email Address</td>
-              <td>{userData.email}</td>
-            </tr>
-            <tr>
-              <td>Mobile Number</td>
-              <td>{userData.mobile}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    );
-  }
 }
+
+

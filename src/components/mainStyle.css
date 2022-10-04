@@ -34,3 +34,6 @@
     @apply px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-black uppercase border-b
 }
 
+.tableRowStyling {
+    @apply text-sm font-medium leading-5 text-black
+}
