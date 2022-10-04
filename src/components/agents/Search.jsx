@@ -1,17 +1,10 @@
-import { React, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { findEntry, parseJwt } from "../../web-services";
+import { React, useEffect, useState } from "react";
+import { findEntry } from "../../web-services";
+import AlertComponent from "../AlertComponent";
 import "../mainStyle.css";
 import Results from "./Results";
 
 export default function Search() {
-  //   const token = localStorage.getItem("token");
-  //   const userInfo = parseJwt(token);
-
-  const navigate = useNavigate();
-
-  const [showResults, setShowResults] = useState(false);
-
   const [user, setUser] = useState({
     firstName: "",
     lastName: "",
@@ -19,6 +12,8 @@ export default function Search() {
     mobile: "",
     email: "",
   });
+
+  const [hasError, setHasError] = useState(false);
 
   const [userData, setUserData] = useState({});
 
@@ -28,8 +23,11 @@ export default function Search() {
     findEntry(user)
       .then((response) => {
         if (!response.ok) {
-          alert("No User Found");
+          setHasError(true);
           setHasResult(false);
+          setTimeout(() => {
+            setHasError(false);
+          }, 5000);
           throw new Error("No User Found");
         }
 
@@ -41,14 +39,25 @@ export default function Search() {
       });
   }
 
+  useEffect(() => {
+    document.title = "Customer Search | Service NSW";
+  }, []);
+
   return (
     <div className="viewContainerMain">
       <div className="viewContainerBorder">
+        {hasError ? (
+          <AlertComponent
+            type={"error"}
+            message={"No user found, please try again"}
+          />
+        ) : null}
         <h1 className="headingContainer">Search Customer</h1>
         <>
           <form
             className="mt-6"
             onSubmit={(e) => {
+              find();
               e.preventDefault();
             }}
           >
@@ -60,7 +69,6 @@ export default function Search() {
               className="inputContainer"
               onChange={(e) => setUser({ ...user, firstName: e.target.value })}
               value={user.firstName}
-              required
             />
             <br />
             <label htmlFor="" className="labelHeadingContainer">
@@ -71,7 +79,6 @@ export default function Search() {
               className="inputContainer"
               onChange={(e) => setUser({ ...user, lastName: e.target.value })}
               value={user.lastName}
-              required
             />
             <br />
             <label htmlFor="" className="labelHeadingContainer">
@@ -84,7 +91,16 @@ export default function Search() {
                 setUser({ ...user, dateOfBirth: e.target.value })
               }
               value={user.dateOfBirth}
-              required
+            />
+            <br />
+            <label htmlFor="" className="labelHeadingContainer">
+              Mobile:
+            </label>
+            <input
+              type="phone"
+              className="inputContainer"
+              onChange={(e) => setUser({ ...user, mobile: e.target.value })}
+              value={user.mobile}
             />
             <br />
             <label htmlFor="" className="labelHeadingContainer">
@@ -95,35 +111,16 @@ export default function Search() {
               className="inputContainer"
               onChange={(e) => setUser({ ...user, email: e.target.value })}
               value={user.email}
-              disabled
-            />
-            <br />
-            <label htmlFor="" className="labelHeadingContainer">
-              Mobile Number:
-            </label>
-            <input
-              type="phone"
-              className="inputContainer"
-              onChange={(e) => setUser({ ...user, mobile: e.target.value })}
-              value={user.mobile}
-              disabled
             />
             <div className="mt-6">
-              <button
-                className="btn-red-main"
-                onClick={() => {
-                  find();
-                }}
-              >
-                Search
-              </button>
+              <button className="btn-red-main">Search</button>
             </div>
           </form>
-          {hasResult ? <Results userData={userData} /> : null}
+          {hasResult ? (
+            <Results userData={userData} setHasResult={setHasResult} />
+          ) : null}
         </>
       </div>
     </div>
   );
 }
-
-

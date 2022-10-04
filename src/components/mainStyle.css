@@ -3,7 +3,7 @@
 }
 
 .viewContainerBorder {
-    @apply w-full p-6 m-auto bg-white border-t border-blue-600 rounded shadow-lg shadow-blue-800/50 lg:max-w-md
+    @apply w-full p-6 m-auto bg-white border-t-2 border-blue-600 rounded shadow-lg shadow-blue-800/50 lg:max-w-md
 }
 
 .headingContainer {
@@ -37,3 +37,4 @@
 .tableRowStyling {
     @apply text-sm font-medium leading-5 text-black
 }
+

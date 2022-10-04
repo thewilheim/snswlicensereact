@@ -1,12 +1,13 @@
 import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { addEntry, parseJwt } from "../../web-services";
+import AlertComponent from "../AlertComponent";
 import "../mainStyle.css";
 
 export default function Create() {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
-  const userInfo = parseJwt(token);
+  const [wasSucessful, setWasSucessful] = useState(false);
 
   const [user, setUser] = useState({
     startTime: "",
@@ -14,25 +15,14 @@ export default function Create() {
     instructorLed: false,
   });
 
-  const calculateTotal = (start, end) => {
-    const startDate = new Date(start);
-    const endDate = new Date(end);
-    let secondsDiff = endDate.getTime() - startDate.getTime();
-    secondsDiff = secondsDiff / 1000;
-    const minuteDifference = secondsDiff / 60;
-
-    if (user.instructorLed) {
-      return minuteDifference + 180;
-    } else {
-      return minuteDifference;
-    }
-  };
-
   function add() {
     addEntry(user).then((response) => {
       if (response.ok) {
-        alert("Logbook Entry Added");
-        navigate("/logbook");
+        setWasSucessful(true);
+        setTimeout(() => {
+          setWasSucessful(false);
+          navigate("/logbook");
+        }, 3000);
       } else {
         alert(response.status);
       }
@@ -43,6 +33,13 @@ export default function Create() {
     <div className="viewContainerMain">
       <div className="viewContainerBorder">
         <h1 className="headingContainer"></h1>
+
+        {wasSucessful ? (
+          <AlertComponent
+            type={"success"}
+            message={"Entry added to logbook, redirecting you now"}
+          />
+        ) : null}
 
         <form
           onSubmit={(e) => {
@@ -60,8 +57,9 @@ export default function Create() {
             value={user.startTime}
           />
           <br />
-          <label htmlFor=""
-          className="labelHeaderContainer">End Time:</label>
+          <label htmlFor="" className="labelHeaderContainer">
+            End Time:
+          </label>
           <input
             type="datetime-local"
             className="inputContainer"
@@ -71,8 +69,9 @@ export default function Create() {
             required
           />
           <br />
-          <label htmlFor=""
-          className="text-sm text-black mr-5">Instructor Led:</label>
+          <label htmlFor="" className="text-sm text-black mr-5">
+            Instructor Led:
+          </label>
           <input
             type="checkbox"
             onChange={() =>
@@ -81,9 +80,7 @@ export default function Create() {
             value={user.instructorLed}
           />
           <div className="mt-6">
-            <button className="btn-red-main">
-              Add
-            </button>
+            <button className="btn-red-main">Add</button>
           </div>
           <br />
         </form>
