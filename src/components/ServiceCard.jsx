@@ -20,7 +20,7 @@ function ServiceCard({ title, elements, url, buttonText }) {
 
       {buttonText ? (
         <button
-          className="rounded text-white font-semibold bg-[#C60C30] p-2 hover:bg-[#D81439] "
+          className="rounded text-white font-semibold bg-red-700 p-2 hover:bg-red-600"
           onClick={() => navigate(`/${url}`)}
         >
           {buttonText}

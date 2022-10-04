@@ -11,7 +11,7 @@
 }
 
 .btn-red {
-    @apply rounded text-white font-semibold bg-[#D81439] px-10 h-9 my-auto
+    @apply rounded text-white font-semibold bg-red-700 hover:bg-red-600 px-10 h-9 my-auto
 }
 
 .progressBar {

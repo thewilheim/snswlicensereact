@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginAsync } from "../../web-services";
-import "./usersStyle.css";
+import "../mainStyle.css";
+
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -45,11 +46,11 @@ export default function Login() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <a href="#" className="text-xs text-black-600 hover:underline">
+            {/* <a href="#" className="text-xs text-black-600 hover:underline">
               Forget Password?
-            </a>
+            </a> */}
             <div className="mt-6">
-              <button className="btn-red" onClick={login}>
+              <button className="btn-red-main" onClick={login}>
                 Login
               </button>
             </div>
