@@ -1,10 +1,14 @@
 import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { parseJwt } from "../../web-services";
+import AlertComponent from "../AlertComponent";
 import "../mainStyle.css";
 
 export default function Register() {
   const navigate = useNavigate();
+
+  const [hasError, setHasError] = useState(false);
+
   const [user, setUser] = useState({
     firstName: "",
     lastName: "",
@@ -14,29 +18,43 @@ export default function Register() {
     dateOfBirth: "",
   });
 
-  const registerUser = async () => {
-    const response = await fetch("http://localhost:8080/register", {
+  const registerUser = () => {
+    fetch("http://localhost:8080/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(user),
-    });
-
-    const token = await response.json();
-
-    localStorage.setItem("token", token);
-
-    let payload = parseJwt(token);
-    navigate("/");
+    })
+      .then((res) => {
+        if (res.status === 400) {
+          setHasError(true);
+          setTimeout(() => {
+            setHasError(false);
+          }, 5000);
+          throw new Error("Duplicate Email");
+        }
+        return res.json();
+      })
+      .then((token) => {
+        localStorage.setItem("token", token);
+        navigate("/");
+      });
   };
 
   return (
     <div className="viewContainerMain">
       <div className="viewContainerBorder">
-        <h1 className="headingContainer">
-          Register
-        </h1>
+        {hasError ? (
+          <AlertComponent
+            type={"error"}
+            message={
+              "Email already in use, please try again with a diffrent email."
+            }
+          />
+        ) : null}
+
+        <h1 className="headingContainer">Register</h1>
         <div className="mt-6">
           <form
             action=""
@@ -45,10 +63,7 @@ export default function Register() {
               e.preventDefault();
             }}
           >
-            <label
-              htmlFor=""
-              className="labelHeaderContainer"
-            >
+            <label htmlFor="" className="labelHeaderContainer">
               First Name:
             </label>
             <div className="flex flex-col items-start">
@@ -63,10 +78,7 @@ export default function Register() {
               />
             </div>
             <br />
-            <label
-              htmlFor=""
-              className="labelHeaderContainer"
-            >
+            <label htmlFor="" className="labelHeaderContainer">
               Last Name:
             </label>
             <input
@@ -77,10 +89,7 @@ export default function Register() {
               required
             />
             <br />
-            <label
-              htmlFor=""
-              className="labelHeaderContainer"
-            >
+            <label htmlFor="" className="labelHeaderContainer">
               Date of Birth:
             </label>
             <input
@@ -93,10 +102,7 @@ export default function Register() {
               required
             />
             <br />
-            <label
-              htmlFor=""
-              className="labelHeaderContainer"
-            >
+            <label htmlFor="" className="labelHeaderContainer">
               Email:
             </label>
             <input
@@ -107,10 +113,7 @@ export default function Register() {
               required
             />
             <br />
-            <label
-              htmlFor=""
-              className="labelHeaderContainer"
-            >
+            <label htmlFor="" className="labelHeaderContainer">
               Mobile Number:
             </label>
             <input
@@ -121,10 +124,7 @@ export default function Register() {
               required
             />
             <br />
-            <label
-              htmlFor=""
-              className="labelHeaderContainer"
-            >
+            <label htmlFor="" className="labelHeaderContainer">
               Password
             </label>
             <input
@@ -136,10 +136,7 @@ export default function Register() {
             />
             <br />
             <div className="flex items-center mt-4">
-              <button
-                className="btn-red-main"
-                type="submit"
-              >
+              <button className="btn-red-main" type="submit">
                 Register
               </button>
             </div>
