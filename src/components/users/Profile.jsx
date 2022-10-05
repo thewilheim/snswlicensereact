@@ -111,14 +111,16 @@ export default function Profile() {
         getHours(license.totalTime) >= 120 &&
         getHours(license.totalNightTime) >= 20
       ) {
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            upgradeLicenseLocal();
-          }}
-        >
-          Issue Provisional License
-        </button>;
+        return (
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              upgradeLicenseLocal();
+            }}
+          >
+            Issue Provisional License
+          </button>
+        );
       }
     }
   }
@@ -129,7 +131,9 @@ export default function Profile() {
         return r.json();
       })
       .then((j) => {
-        var test = window.confirm("Has this user passed the knowledge check? 'Ok' for yes, 'Cancel' for no.");
+        var test = window.confirm(
+          "Has this user passed the knowledge check? 'Ok' for yes, 'Cancel' for no."
+        );
         if (test) {
           alert(`License ID: ${j._id} has been created successfully!`);
         }
