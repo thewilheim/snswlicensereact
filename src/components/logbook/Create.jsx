@@ -29,8 +29,8 @@ export default function Create() {
   }
 
   return (
-    <div className="viewContainerMain">
-      <div className="viewContainerBorder">
+    <div className="viewMainContainer">
+      <div className="viewBorderContainer">
         <h1 className="headingContainer"></h1>
 
         {wasSucessful ? (

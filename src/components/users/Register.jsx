@@ -43,8 +43,8 @@ export default function Register() {
   };
 
   return (
-    <div className="viewContainerMain">
-      <div className="viewContainerBorder">
+    <div className="viewMainContainer">
+      <div className="viewBorderContainer">
         {hasError ? (
           <AlertComponent
             type={"error"}
@@ -53,7 +53,6 @@ export default function Register() {
             }
           />
         ) : null}
-
         <h1 className="headingContainer">Register</h1>
         <div className="mt-6">
           <form

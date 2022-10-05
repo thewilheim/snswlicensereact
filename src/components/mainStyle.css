@@ -1,40 +1,39 @@
-.viewContainerMain {
-    @apply relative flex flex-col justify-center min-h-screen overflow-hidden
+.viewMainContainer {
+  @apply relative flex flex-col justify-center min-h-screen overflow-hidden;
 }
 
-.viewContainerBorder {
-    @apply w-full p-6 m-auto bg-white border-t-2 border-blue-600 rounded shadow-lg shadow-blue-800/50 lg:max-w-md
+.viewBorderContainer {
+  @apply w-full p-6 m-auto bg-white border border-slate-400 border-t-[#2E5299] rounded shadow-md border-t-4 p-4 shadow-slate-500/40 lg:max-w-md;
 }
 
 .headingContainer {
-    @apply text-3xl font-semibold text-left text-black
+  @apply text-3xl font-semibold text-left text-black;
 }
 
 .labelHeaderContainer {
-    @apply block text-sm text-black
+  @apply block text-sm text-black;
 }
 
 .inputContainer {
-    @apply block w-full px-4 py-2 mt-2 text-black bg-white border rounded-md focus:border-blue-400 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40
+  @apply block w-full px-4 py-2 mt-2 text-black bg-white border rounded-md focus:border-blue-400 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40;
 }
 
 .btn-red-main {
-    @apply w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-red-700 rounded-md hover:bg-red-600 focus:outline-none
+  @apply px-4 py-2 tracking-wide text-[#fff] font-semibold transition-colors duration-200 transform bg-[#c60c30] rounded-md hover:bg-red-500 focus:outline-none;
 }
 
 .tableMainContainer {
-    @apply py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8
+  @apply w-full text-sm text-left text-black;
 }
 
-.tableContainerBorder {
-    @apply inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg
+.tableBorderContainer {
+  @apply text-xs text-black uppercase bg-white;
 }
 
 .tableColumnHeading {
-    @apply px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-black uppercase border-b
+  @apply py-3 px-6 bg-gray-50;
 }
 
 .tableRowStyling {
-    @apply text-sm font-medium leading-5 text-black
+  @apply py-4 px-6;
 }
-

@@ -11,7 +11,7 @@
 }
 
 .btn-red {
-    @apply rounded text-white font-semibold bg-red-700 hover:bg-red-600 px-10 h-9 my-auto
+    @apply px-4 py-2 tracking-wide text-[#fff] font-semibold transition-colors duration-200 transform bg-[#c60c30] rounded-md hover:bg-red-500 focus:outline-none
 }
 
 .progressBar {

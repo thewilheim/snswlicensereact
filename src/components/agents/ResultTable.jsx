@@ -5,25 +5,25 @@ function ResultTable({ userData }) {
   const navigate = useNavigate();
   return (
     <div className="overflow-x-auto relative">
-      <table className="w-full text-sm text-left text-black">
-        <thead className="text-xs text-black uppercase bg-white ">
+      <table className="tableMainContainer">
+        <thead className="tableBorderContainer">
           <tr className="border-b-2">
-            <th scope="col" className="py-3 px-6 bg-gray-50">
+            <th scope="col" className="tableColumnHeading">
               First Name
             </th>
-            <th scope="col" className="py-3 px-6">
+            <th scope="col" className="tableColumnHeading">
               Last Name
             </th>
-            <th scope="col" className="py-3 px-6 bg-gray-50">
+            <th scope="col" className="tableColumnHeading">
               Date Of Birth
             </th>
-            <th scope="col" className="py-3 px-6">
+            <th scope="col" className="tableColumnHeading">
               Email
             </th>
-            <th scope="col" className="py-3 px-6 bg-gray-50 ">
+            <th scope="col" className="tableColumnHeading">
               Mobile
             </th>
-            <th scope="col" className="py-3 px-6">
+            <th scope="col" className="tableColumnHeading">
               User Profile
             </th>
           </tr>
@@ -32,14 +32,14 @@ function ResultTable({ userData }) {
           {userData.map((user) => {
             return (
               <tr className="bg-white tracking-wide" key={user.email}>
-                <td className="py-4 px-6 bg-gray-50">{user.firstName}</td>
-                <td className="py-4 px-6">{user.lastName}</td>
-                <td className="py-4 px-6 bg-gray-50 ">{user.dateOfBirth}</td>
-                <td className="py-4 px-6">{user.email}</td>
-                <td className="py-4 px-6 bg-gray-50 ">{user.mobile}</td>
-                <td className="py-4 px-6">
+                <td className="tableRowStyling">{user.firstName}</td>
+                <td className="tableRowStyling">{user.lastName}</td>
+                <td className="tableRowStyling">{user.dateOfBirth}</td>
+                <td className="tableRowStyling">{user.email}</td>
+                <td className="tableRowStyling">{user.mobile}</td>
+                <td className="tableRowStyling">
                   <button
-                    className="hover:underline hover:font-semibold"
+                    className="btn-red-main"
                     onClick={() => navigate(`/profile/${user._id}`)}
                   >
                     Details

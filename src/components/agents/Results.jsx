@@ -11,14 +11,14 @@ export default function Results({ userData, setHasResult }) {
       className="flex overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-0 w-full md:inset-0 md:h-full bg-gray-600/60 backdrop-blur-sm"
     >
       <div className="relative p-4 w-full max-w-5xl h-full md:h-auto m-auto">
-        <div className="relative bg-white rounded-lg shadow-lg border-t-2 border-blue-600">
+        <div className="relative bg-white rounded-lg shadow-lg border-t-2 border-blue-900">
           <div className="flex justify-between items-start p-4 rounded-t border-b ">
             <h3 className="text-xl font-semibold text-gray-900">
               Search Results
             </h3>
             <button
               type="button"
-              className="text-gray-400 bg-transparent hover:bg-red-600 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:text-white"
+              className="text-gray-400 bg-transparent hover:bg-red-500 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:text-white"
               data-modal-toggle="defaultModal"
               onClick={() => setHasResult(false)}
             >
@@ -50,7 +50,7 @@ export default function Results({ userData, setHasResult }) {
               data-modal-toggle="defaultModal"
               type="button"
               onClick={() => setHasResult(false)}
-              className="text-white bg-red-600 hover:bg-red-500 rounded-lg text-sm font-medium px-5 py-2.5"
+              className="btn-red-main"
             >
               Close
             </button>

@@ -19,8 +19,8 @@ export default function Login() {
       .catch((e) => alert(e.message));
   }
   return (
-    <div className="viewContainerMain">
-      <div className="viewContainerBorder">
+    <div className="viewMainContainer">
+      <div className="viewBorderContainer">
         <h1 className="headingContainer">Login</h1>
         <form className="mt-6" onSubmit={(e) => e.preventDefault()}>
           <div>

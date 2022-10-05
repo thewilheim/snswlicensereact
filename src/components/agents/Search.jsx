@@ -44,8 +44,8 @@ export default function Search() {
   }, []);
 
   return (
-    <div className="viewContainerMain">
-      <div className="viewContainerBorder">
+    <div className="viewMainContainer">
+      <div className="viewBorderContainer">
         {hasError ? (
           <AlertComponent
             type={"error"}
