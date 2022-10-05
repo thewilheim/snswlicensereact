@@ -57,9 +57,28 @@ export default function Profile() {
     } else if (user.roles.includes("learners")) {
       return (
         <>
-          <p>Learner's license ID: {license._id}</p>
-          <p>Total hours: {convertTime(license.totalTime)}</p>
-          <p>Total night hours: {convertTime(license.totalNightTime)}</p>
+          <p>Learner's license ID</p>
+          <p className="data w-full">{license._id}</p>
+          <div className="mt-2">
+            Total Hours Completed : {convertTime(license.totalTime)}
+            <div className="progressBar">
+              <div
+                className="progressBar-Blue"
+                style={{ width: `${(license.totalTime / 432000000) * 100}%` }}
+              ></div>
+            </div>
+          </div>
+          <div>
+            Total Night Hours Completed : {convertTime(license.totalNightTime)}
+            <div className="progressBar">
+              <div
+                className="progressBar-Purple"
+                style={{
+                  width: `${(license.totalNightTime / 72000000) * 100}%`,
+                }}
+              ></div>
+            </div>
+          </div>
         </>
       );
     } else {
@@ -126,14 +145,12 @@ export default function Profile() {
   }
 
   if (!loaded) {
-    return <h1>Loading...</h1>;
+    return <h1 className="heading">Loading...</h1>;
   } else {
     return (
       <div className="container">
-        <div className="">
-          <h1>
-            {`${user.firstName} ${user.lastName}'s Profile`}
-          </h1>
+        <div>
+          <h1 className="heading">{`${user.firstName} ${user.lastName}'s Profile`}</h1>
           <div className="float-left w-1/2">
             <p>First Name</p>
             <p className="data w-11/12">{user.firstName}</p>
