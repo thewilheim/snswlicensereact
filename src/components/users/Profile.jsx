@@ -10,6 +10,7 @@ import {
   parseJwt,
   upgradeLicense,
 } from "../../web-services";
+import "./styles.css";
 
 export default function Profile() {
   const { id } = useParams();
@@ -128,15 +129,28 @@ export default function Profile() {
     return <h1>Loading...</h1>;
   } else {
     return (
-      <div>
-        <h1>
-          {user.firstName} {user.lastName}
-        </h1>
-        <p>Email: {user.email}</p>
-        <p>Mobile: {user.mobile}</p>
-        <p>Date Of Birth: {user.dateOfBirth}</p>
-        {userRoles()}
-        {licenseButton()}
+      <div className="container">
+        <div className="">
+          <h1>
+            {`${user.firstName} ${user.lastName}'s Profile`}
+          </h1>
+          <div className="float-left w-1/2">
+            <p>First Name</p>
+            <p className="data w-11/12">{user.firstName}</p>
+            <p>Date Of Birth</p>
+            <p className="data w-11/12">{user.dateOfBirth}</p>
+          </div>
+          <div className="float-right w-1/2">
+            <p>Last Name</p>
+            <p className="data w-full">{user.lastName}</p>
+            <p>Mobile</p>
+            <p className="data w-full">{user.mobile}</p>
+          </div>
+          <p>Email</p>
+          <p className="data w-full">{user.email}</p>
+          {userRoles()}
+          {licenseButton()}
+        </div>
       </div>
     );
   }

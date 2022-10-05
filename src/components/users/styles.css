@@ -1,0 +1,11 @@
+.container {
+    @apply bg-white border-t-2 border-blue-600 rounded shadow-lg shadow-blue-800/50 lg:max-w-3xl m-auto p-6 w-full;
+}
+
+.data {
+    @apply bg-blue-300 mb-2 pl-2 text-sm shadow-lg shadow-blue-500/20;
+}
+
+h1 {
+    @apply font-bold text-center mb-2;
+}
