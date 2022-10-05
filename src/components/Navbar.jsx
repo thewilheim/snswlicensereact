@@ -93,14 +93,14 @@ function Navbar() {
               className="flex justify-center items-center mr-5 px-2 cursor-pointer border-b-4 border-b-transparent hover:border-b-[#2E5299] h-full"
               onClick={() => navigate("/")}
             >
-              <p>Overview</p>
+              <p className="HomepageLink">Overview</p>
             </div>
             {parseJwt(token).roles.includes("learners") ? (
               <div
                 className="flex justify-center items-center mr-5 px-2 cursor-pointer border-b-4 border-b-transparent hover:border-b-[#2E5299] h-full"
                 onClick={() => navigate("/logbook")}
               >
-                <p>Logbook</p>
+                <p className="LogbookLink">Logbook</p>
               </div>
             ) : null}
           </nav>

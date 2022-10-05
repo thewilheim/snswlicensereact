@@ -9,6 +9,18 @@ function LayoutPage() {
 
   useEffect(() => {
     document.title = "Logbook | Service NSW Demo";
+
+    const logbook = document.querySelector(".LogbookLink");
+
+    if (logbook) {
+      logbook.classList.add("font-bold");
+    }
+
+    return function cleanup() {
+      if (logbook) {
+        logbook.classList.remove("font-bold");
+      }
+    };
   }, []);
 
   return (
