@@ -1,12 +1,11 @@
 import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { addEntry, parseJwt } from "../../web-services";
+import { addEntry } from "../../web-services";
 import AlertComponent from "../AlertComponent";
 import "../mainStyle.css";
 
 export default function Create() {
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
   const [wasSucessful, setWasSucessful] = useState(false);
 
   const [user, setUser] = useState({
