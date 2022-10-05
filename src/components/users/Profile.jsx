@@ -129,7 +129,6 @@ export default function Profile() {
         return r.json();
       })
       .then((j) => {
-        debugger;
         var test = window.confirm("Has this user passed the knowledge check? 'Ok' for yes, 'Cancel' for no.");
         if (test) {
           alert(`License ID: ${j._id} has been created successfully!`);
