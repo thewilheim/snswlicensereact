@@ -129,24 +129,25 @@ export default function Profile() {
   }
 
   async function newLicense() {
-    await createLicense(user)
-      .then((r) => {
-        return r.json();
-      })
-      .then((j) => {
-        var test = window.confirm(
-          "Has this user passed the knowledge check? 'Ok' for yes, 'Cancel' for no."
-        );
-        if (test) {
+    var test = window.confirm(
+      "Has this user passed the knowledge check? 'Ok' for yes, 'Cancel' for no."
+    );
+
+    if (test) {
+      await createLicense(user)
+        .then((r) => {
+          return r.json();
+        })
+        .then((j) => {
           alert(`License ID: ${j._id} has been created successfully!`);
-        }
-      })
-      .then(() => {
-        window.location.reload(true);
-      })
-      .catch((e) => {
-        alert(e.message);
-      });
+        })
+        .then(() => {
+          window.location.reload(true);
+        })
+        .catch((e) => {
+          alert(e.message);
+        });
+    }
   }
 
   async function upgradeLicenseLocal() {
