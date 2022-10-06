@@ -9,7 +9,7 @@ function ServiceCard({ title, elements, url, buttonText }) {
 
       {elements.map((item) => {
         return (
-          <p>
+          <p className="">
             {item.key === "" ? null : (
               <strong className="font-semibold">{item.key}</strong>
             )}
