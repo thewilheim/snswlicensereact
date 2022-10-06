@@ -21,7 +21,7 @@ export default function Create() {
         setTimeout(() => {
           setWasSucessful(false);
           navigate("/logbook");
-        }, 3000);
+        }, 500);
       } else {
         alert(response.status);
       }
