@@ -95,7 +95,8 @@ function Navbar() {
             >
               <p className="HomepageLink">Overview</p>
             </div>
-            {parseJwt(token).roles.includes("learners") ? (
+            {parseJwt(token).roles.includes("learners") &&
+            !parseJwt(token).roles.includes("provisional") ? (
               <div
                 className="flex justify-center items-center mr-5 px-2 cursor-pointer border-b-4 border-b-transparent hover:border-b-[#2E5299] h-full"
                 onClick={() => navigate("/logbook")}

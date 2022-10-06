@@ -1,12 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { parseJwt } from "../web-services";
+import { getLicense, parseJwt } from "../web-services";
 import ServiceCard from "./ServiceCard";
 
 function Homepage() {
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
-
   useEffect(() => {
     document.title = "Overview | Service NSW Demo";
     const homepage = document.querySelector(".HomepageLink");
@@ -110,20 +109,27 @@ function Homepage() {
           />
         ) : null}
 
-        {userInfo.roles.includes("learners") ? (
+        {userInfo.roles.includes("learners") &&
+        !userInfo.roles.includes("provisional") ? (
           <ServiceCard
             title="Logbook Service"
-            elements={[
-              { key: "License Number: ", value: "123456" },
-              { key: "License Status: ", value: userInfo.roles[1] },
-            ]}
+            elements={[{ key: "License Status: ", value: userInfo.roles[1] }]}
             url={"logbook"}
             buttonText={"View Logbook"}
           />
         ) : null}
 
+        {userInfo.roles.includes("provisional") &&
+        userInfo.roles.includes("learners") ? (
+          <ServiceCard
+            title="License Information"
+            elements={[{ key: "License Status: ", value: userInfo.roles[2] }]}
+          />
+        ) : null}
+
         {!userInfo.roles.includes("CSR") &&
-        !userInfo.roles.includes("learners") ? (
+        !userInfo.roles.includes("learners") &&
+        !userInfo.roles.includes("provisional") ? (
           <ServiceCard title="No Avaliable Services" elements={[]} />
         ) : null}
       </div>
