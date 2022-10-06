@@ -124,7 +124,7 @@ function Homepage() {
 
         {!userInfo.roles.includes("CSR") &&
         !userInfo.roles.includes("learners") ? (
-          <ServiceCard title="No Avaliable Services" elements={[]} />
+          <ServiceCard title="No Available Services" elements={[]} />
         ) : null}
       </div>
     </div>

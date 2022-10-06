@@ -11,6 +11,7 @@ import {
   upgradeLicense,
 } from "../../web-services";
 import "./styles.css";
+import "../mainStyle.css";
 
 export default function Profile() {
   const { id } = useParams();
@@ -94,6 +95,7 @@ export default function Profile() {
       ) {
         return (
           <button
+            className="btn-red-main mt-3"
             onClick={(e) => {
               e.preventDefault();
               newLicense();
@@ -105,14 +107,15 @@ export default function Profile() {
       } else if (
         !user.roles.includes("provisional") &&
         user.roles.includes("learners") &&
-        new Date(
+        (new Date(
           new Date(user.dateOfBirth).getTime() + 788923800000
-        ).getTime() < new Date().getTime() &&
-        getHours(license.totalTime) >= 120 &&
-        getHours(license.totalNightTime) >= 20
+        ).getTime() < new Date().getTime() ||
+          (getHours(license.totalTime) >= 120 &&
+            getHours(license.totalNightTime) >= 20))
       ) {
         return (
           <button
+            className="btn-red-main mt-3"
             onClick={(e) => {
               e.preventDefault();
               upgradeLicenseLocal();
@@ -139,7 +142,7 @@ export default function Profile() {
         }
       })
       .then(() => {
-        window.location.reload(false);
+        window.location.reload(true);
       })
       .catch((e) => {
         alert(e.message);
@@ -148,31 +151,75 @@ export default function Profile() {
 
   async function upgradeLicenseLocal() {
     upgradeLicense(user);
+    alert(`License ID: ${license._id} has been created successfully!`);
+    window.location.reload(true);
   }
 
   if (!loaded) {
-    return <h1 className="heading">Loading...</h1>;
+    return (
+      <h1 className="text-2xl font-semibold text-left text-black;">
+        Loading...
+      </h1>
+    );
   } else {
     return (
-      <div className="container">
-        <div>
-          <h1 className="heading">{`${user.firstName} ${user.lastName}'s Profile`}</h1>
-          <div className="float-left w-1/2">
-            <p>First Name</p>
-            <p className="data w-11/12">{user.firstName}</p>
-            <p>Date Of Birth</p>
-            <p className="data w-11/12">{user.dateOfBirth}</p>
+      <div className="viewMainContainer">
+        <div className="p-6 m-auto bg-white border border-slate-400 border-t-[#2E5299] rounded shadow-md border-t-4 p-4 shadow-slate-500/40 lg:w-md">
+          <div>
+            <h1 className="text-2xl font-semibold text-center text-black;">{`${user.firstName} ${user.lastName}'s Profile`}</h1>
+            <div className="float-left w-1/2 px-4">
+              <br />
+              <label htmlFor="" className="labelHeadingContainer">
+                First Name:
+              </label>
+              <input
+                type="text"
+                className="inputContainer"
+                value={user.firstName}
+              />
+              <br />
+              <label htmlFor="" className="labelHeadingContainer">
+                Date of Birth:
+              </label>
+              <input
+                type="date"
+                className="inputContainer"
+                value={user.dateOfBirth}
+              />
+              <br />
+              <label htmlFor="" className="labelHeadingContainer">
+                Email:
+              </label>
+              <input
+                type="email"
+                className="inputContainer"
+                value={user.email}
+              />
+            </div>
+            <div className="float-right w-1/2 px-4">
+              <br />
+              <label htmlFor="" className="labelHeadingContainer">
+                Last Name:
+              </label>
+              <input
+                type="text"
+                className="inputContainer"
+                value={user.lastName}
+              />
+              <br />
+              <label htmlFor="" className="labelHeadingContainer">
+                Mobile:
+              </label>
+              <input
+                type="phone"
+                className="inputContainer"
+                value={user.mobile}
+              />
+              <br />
+              {userRoles()}
+              {licenseButton()}
+            </div>
           </div>
-          <div className="float-right w-1/2">
-            <p>Last Name</p>
-            <p className="data w-full">{user.lastName}</p>
-            <p>Mobile</p>
-            <p className="data w-full">{user.mobile}</p>
-          </div>
-          <p>Email</p>
-          <p className="data w-full">{user.email}</p>
-          {userRoles()}
-          {licenseButton()}
         </div>
       </div>
     );
